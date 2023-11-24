@@ -1,5 +1,5 @@
 # projetData
-Je present vous présente le compte rendu du projet "Entrepôt de Données" que nous avons mené au cours de l'année. Ce projet visait à établir un entrepôt de données permettant de répondre à plusieurs questions analytiques en utilisant des fichiers sources.
+Je vous présente le compte rendu du projet "Entrepôt de Données" que nous avons mené au cours de l'année. Ce projet visait à établir un entrepôt de données permettant de répondre à plusieurs questions analytiques en utilisant des fichiers sources.
 
 1. Analyse des Sources de Données
 Les principales sources de données utilisées pour le projet étaient :
