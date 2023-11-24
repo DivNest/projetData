@@ -1,11 +1,11 @@
 from datetime import datetime
 import os
 import pandas as pd
+from sqlalchemy import create_engine
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from airflow.operators.postgres_operator import PostgresOperator  
+from airflow.operators.postgres_operator import PostgresOperator
 from airflow.hooks.postgres_hook import PostgresHook
-from sqlalchemy import create_engine
 
 def extract_and_transform(**kwargs):
     try:
@@ -61,10 +61,10 @@ def data_transform_and_load(**kwargs):
 # Liste des tables de dimension à charger
         tables_dimensions = ['departements', 'tranche_age', 'regions', 'sexe']
         
-        for table_name_dimension in tables_dimensions:
+        for tables_dimensions in tables_dimensions:
             # Charger les données dans chaque table de dimension
             df_dimension = pd.read_csv(f'/data/donnees_transformees.csv')  # Remplacez par le chemin vers vos données
-            df_dimension.to_sql(table_name_dimension, engine, index=False, if_exists='replace')
+            df_dimension.to_sql(tables_dimensions, engine, index=False, if_exists='replace')
 
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -99,6 +99,11 @@ transform_and_load = PythonOperator(
     task_id = 'transform_and_load',
     python_callable = data_transform_and_load
     )
+# Tâche pour effectuer les jointures
+join_tables = PostgresOperator(
+    task_id='join_tables',
+    postgres_conn_id='postgres_connexion',
+    sql='C:\\Users\\Mpscomputer\\Desktop\\projet\\dags\\join_tables.sql'  )
 
-etl_task >> create_table >> transform_and_load
+etl_task >> create_table >> transform_and_load>> join_tables
 
