@@ -28,5 +28,20 @@ tranche_age
 regions
 sexe
 urgences_covid_faits
-7. Conclusion
+Jointures entre les tables de l'entrepôt de données
+Pour enrichir notre entrepôt de données, des jointures ont été réalisées entre les tables de faits et les tables de dimension. Ces jointures permettent de lier les informations et d'ajouter des détails contextuels aux données brutes. Voici comment les jointures ont été effectuées dans notre script Airflow :
+
+7.Jointure avec la table des départements :
+
+Une jointure interne a été effectuée entre la table des faits (urgences_covid_faits) et la table des départements (departements) sur la colonne dep. Cela nous permet d'associer chaque enregistrement des urgences à un département spécifique.
+Jointure avec la table des tranches d'âge :
+
+Une seconde jointure interne a été réalisée avec la table des tranches d'âge (tranche_age) sur la colonne sursaud_cl_age_corona. Ainsi, chaque enregistrement des urgences est enrichi avec des informations sur la tranche d'âge.
+Jointure avec la table des régions :
+
+Une troisième jointure interne a été réalisée avec la table des régions (regions) sur la colonne region. Cela nous donne des informations supplémentaires sur la région associée à chaque enregistrement.
+Jointure avec la table des sexes :
+
+Enfin, une dernière jointure interne a été effectuée avec la table des sexes (sexe) sur la colonne sex. Ainsi, chaque enregistrement des urgences est lié à des détails sur le sexe du patient.
+8. Conclusion
 Le projet a été mené à bien, répondant aux objectifs fixés. Les fonctionnalités du DAG Airflow assurent une automatisation efficace du processus ETL, tandis que les tables modélisées permettent une exploration et une analyse approfondie des données.
